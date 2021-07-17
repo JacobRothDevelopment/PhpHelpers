@@ -62,11 +62,11 @@ If you wish to update this class, make your changes in the database
 
 // create db connaction
 $pdo = new PDO(
-		$vars['dsn'],
-		$vars['dbUsername'],
-		$vars['dbPassword'],
-		$vars['pdoOptions']
-	);
+	$vars['dsn'],
+	$vars['dbUsername'],
+	$vars['dbPassword'],
+	$vars['pdoOptions']
+);
 
 // Get array of table names
 $sqlGetTables = 'SELECT 
@@ -93,14 +93,14 @@ foreach ($tableArray as $tableData) {
 	$file = $dir . $table . ".php";
 	if (!file_exists($dir)) {
 		$success = mkdir($dir, 0777, true);
-		if (!$success) 
+		if (!$success)
 			throw new Exception("Failed to create class directory");
 	}
 	$DbClassFile = fopen($file, "w");
-	if ($DbClassFile === false) 
+	if ($DbClassFile === false)
 		throw new Exception("Failed to open class file: $table");
 
-	$classText = "<?php\n$autoCreateMessage\n\nnamespace " . 
+	$classText = "<?php\n$autoCreateMessage\n\nnamespace " .
 		$vars['namespace'] . ";\n\nclass " . $table . "\n{\n";
 	foreach ($columnArray as $column) {
 		if ($column['TABLE_NAME'] === $table) {
@@ -113,5 +113,5 @@ foreach ($tableArray as $tableData) {
 	$classText .= "}\n";
 	fwrite($DbClassFile, $classText);
 	fclose($DbClassFile);
-    chmod($file, 0777);
+	chmod($file, 0777);
 }

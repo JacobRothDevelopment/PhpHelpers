@@ -1,3 +1,6 @@
 .vscode
+
 *.note
+*.todo
 notes
+todos

@@ -1,16 +1,18 @@
 <?php
 
+namespace PhpHelper;
+
 class PdoWrapper
 {
-    private PDO $db;
+    private \PDO $db;
 
-    public function __construct(PDO $pdo)
+    public function __construct(\PDO $pdo)
     {
         $this->db = $pdo;
     }
 
     #region private fucntions
-    private function LogFailure(PDOStatement $stmt): void
+    private function LogFailure(\PDOStatement $stmt): void
     {
         $errorInfo = $stmt->errorInfo();
         error_log($errorInfo[2]);

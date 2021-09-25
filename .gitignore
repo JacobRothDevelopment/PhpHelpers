@@ -4,3 +4,6 @@
 *.todo
 notes
 todos
+
+/test
+*.log

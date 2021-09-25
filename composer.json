@@ -4,13 +4,13 @@
     "require": {
         "php": "^7.4|^8.0"
     },
-	"type": "library",
-	"keywords": [ "helper", "logging", "database" ],
-	"homepage": "https://github.com/JacobRothDevelopment/PhpHelpers",
-	"license": "MIT",
+    "type": "library",
+    "keywords": [ "helper", "logging", "database" ],
+    "homepage": "https://github.com/JacobRothDevelopment/PhpHelpers",
+    "license": "MIT",
     "autoload": {
-		"psr-4": {
-			"PhpHelpers\\": "/"
-		}
+        "psr-4": {
+            "PhpHelpers\\": "/"
+        }
     }
 }

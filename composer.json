@@ -7,5 +7,10 @@
 	"type": "library",
 	"keywords": [ "helper", "logging", "database" ],
 	"homepage": "https://github.com/JacobRothDevelopment/PhpHelpers",
-	"license": "MIT"
+	"license": "MIT",
+    "autoload": {
+		"psr-4": {
+			"PhpHelpers\\": "/"
+		}
+    }
 }

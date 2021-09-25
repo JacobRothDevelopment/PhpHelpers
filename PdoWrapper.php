@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpHelper;
+namespace PhpHelpers;
 
 class PdoWrapper
 {

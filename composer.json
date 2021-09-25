@@ -4,7 +4,7 @@
     "require": {
         "php": "^7.4|^8.0"
     },
-	"type": "project",
+	"type": "library",
 	"keywords": [ "helper", "logging", "database" ],
 	"homepage": "https://github.com/JacobRothDevelopment/PhpHelpers",
 	"license": "MIT"

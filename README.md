@@ -12,7 +12,7 @@ All scripts are written for PHP 7.4 | 8.\*
   - this script is used to create php classes representing your database tables
   - see the top section of the script to confiure the script's paramters
   - run from the root directory of project
-    ```
+    ```bash
     php UpdateSqlClasses.php
     ```
 - PdoWrapper.php
@@ -29,7 +29,7 @@ All scripts are written for PHP 7.4 | 8.\*
 
   - MAJOR NOTE: with this first release, this class is very rough because it's simply a rough abstraction of what I purpose built for a project. In later versions, this will be made more usable
 
-- Logger
+- Logger.php
   - this class helps create a custom log file.
   - use like
     ```php

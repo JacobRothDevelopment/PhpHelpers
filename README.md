@@ -42,6 +42,10 @@ All scripts are written for PHP 7.4 | 8.\*
     [ 2021-09-25 07:18:52 ] [ INFO ] hello world!
     [ 2021-09-25 07:18:40 ] [ WARN ] hello world!
     ```
+- UsefulFunctions.php
+  - DebugPrint
+    - a wrapper around `print_r` which will output data to the browser in a readable format
+    - optional string title and stringifies a given value of any type
 
 ---
 

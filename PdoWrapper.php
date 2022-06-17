@@ -4,7 +4,7 @@ namespace PhpHelpers;
 
 class PdoWrapper
 {
-    private \PDO $db;
+    protected \PDO $db;
 
     public function __construct(\PDO $pdo)
     {
@@ -12,7 +12,7 @@ class PdoWrapper
     }
 
     #region private fucntions
-    private function LogFailure(\PDOStatement $stmt): void
+    protected function LogFailure(\PDOStatement $stmt): void
     {
         $errorInfo = $stmt->errorInfo();
         error_log($errorInfo[2]);
@@ -20,7 +20,7 @@ class PdoWrapper
 
     // a wrapper for calling pdo functions
     // if the query fails, returns null
-    private function SqlExecution(
+    protected function SqlExecution(
         string $sql,
         array $varSet,
         ?int $fetchMode = null,

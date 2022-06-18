@@ -11,11 +11,11 @@ class PdoWrapper
         $this->db = $pdo;
     }
 
-    #region private fucntions
+    #region private functions
     protected function LogFailure(\PDOStatement $stmt): void
     {
         $errorInfo = $stmt->errorInfo();
-        error_log($errorInfo[2]);
+        error_log(print_r($errorInfo, true));
     }
 
     // a wrapper for calling pdo functions
@@ -23,8 +23,7 @@ class PdoWrapper
     protected function SqlExecution(
         string $sql,
         array $varSet,
-        ?int $fetchMode = null,
-        ?string $fetchClassName = null,
+        ?array $fetchMode = null,
         ?string $fetchMethod = null
     ) {
         // force transaction because why not
@@ -52,9 +51,8 @@ class PdoWrapper
         }
 
         // handle fetch mode
-        // TODO: MAKE BETTER
         if ($fetchMode !== null) {
-            $stmt->setFetchMode($fetchMode, $fetchClassName); // eg PDO::FETCH_CLASS
+            $stmt->setFetchMode(...$fetchMode); // eg [PDO::FETCH_CLASS, 'CLASS_NAME']
         }
 
         // handle fetch method
@@ -78,7 +76,7 @@ class PdoWrapper
     }
     #endregion
 
-    #region TRANACTIONS
+    #region TRANSACTIONS
     public function SaveChanges(): bool
     {
         if (!$this->db->inTransaction()) {

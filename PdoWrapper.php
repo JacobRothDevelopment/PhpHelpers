@@ -52,16 +52,24 @@ class PdoWrapper
 
         // handle fetch mode
         if ($fetchMode !== null) {
-            $stmt->setFetchMode(...$fetchMode); // eg [PDO::FETCH_CLASS, 'CLASS_NAME']
+            $stmt->setFetchMode(...$fetchMode);
+            // eg [PDO::FETCH_CLASS, 'CLASS_NAME']
         }
 
         // handle fetch method
         $result = null;
         switch ($fetchMethod) {
             case "fetch":
-                $result = $stmt->fetch();
+                try {
+                    $result = $stmt->fetch();
+                } catch (\Error $e) {
+                    // if record fails to fetch, 
+                    //  assume the records to be fetched do not exist
+                    $result = null;
+                }
                 // NOTE: if the query fails, fetch will return false
-                // in order to account for this and to remain sane while programming,
+                // in order to account for this 
+                // and to remain sane while programming,
                 //  I will return null instead.
                 if ($result === false) $result = null;
                 break;
@@ -80,7 +88,8 @@ class PdoWrapper
     public function SaveChanges(): bool
     {
         if (!$this->db->inTransaction()) {
-            return true; // if no transaction, all changes are final anyway lol
+            // if no transaction, all changes are final anyway lol
+            return true;
         }
         return $this->db->commit();
     }

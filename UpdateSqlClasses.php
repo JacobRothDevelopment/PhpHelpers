@@ -44,13 +44,13 @@ $PhpDataType = array(
 	'json' => 'object',
 	'datetime' => 'string',
 	'date' => 'string',
-	'timestamp' => 'string'
+	'timestamp' => 'string',
 );
 
 // used to designate a paramter as nullable or not
 $Nullable = array(
 	'YES' => '?',
-	'NO' => ''
+	'NO' => '',
 );
 
 // this will be the 'this file was created automatically' message
@@ -65,7 +65,7 @@ $pdo = new PDO(
 	$vars['dsn'],
 	$vars['dbUsername'],
 	$vars['dbPassword'],
-	$vars['pdoOptions']
+	$vars['pdoOptions'],
 );
 
 // Get array of table names

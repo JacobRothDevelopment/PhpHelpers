@@ -22,9 +22,9 @@ All scripts are written for PHP 7.4 | 8.\*
   - SqlExecution is the method you'll use the most (usage examples here)
 
     ```php
-    $this->SqlExecution($sql, $vars, PDO::FETCH_CLASS, "user", "fetch");
+    $this->SqlExecution($sql, $vars, [PDO::FETCH_CLASS, User::class], "fetch");
 
-    $this->SqlExecution($sql, [], PDO::FETCH_CLASS, "stores", "fetchAll");
+    $this->SqlExecution($sql, [], [PDO::FETCH_CLASS, Stores::class], "fetchAll");
     ```
 
   - MAJOR NOTE: with this first release, this class is very rough because it's simply a loose abstraction of what I purpose built for a project. In later versions, this will be made more usable
@@ -46,7 +46,10 @@ All scripts are written for PHP 7.4 | 8.\*
   - DebugPrint
     - a wrapper around `print_r` which will output data to the browser in a readable format
     - optional string title and stringifies a given value of any type
-
+    - use like
+    ```php
+    \PhpHelpers\Util::DebugPrint($dataToOutput, "A Label To Describe Such Data");
+    ```
 ---
 
 ### Dev notes

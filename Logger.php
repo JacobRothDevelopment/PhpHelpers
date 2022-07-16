@@ -2,6 +2,9 @@
 
 namespace PhpHelpers;
 
+/**
+ * Create custom log files
+ */
 class Logger
 {
     public string $logFile;
@@ -13,6 +16,13 @@ class Logger
         $this->permissions = $permissions;
     }
 
+    /**
+     * Insert data into custom log
+     *
+     * @param string $message
+     * @param string $logLevel
+     * @return void
+     */
     public function log(string $message, string $logLevel = LogLevel::Info)
     {
         $logMessage = "[ " . date("Y-m-d H:i:s") . " ] [ " . $logLevel . " ] " . $message . "\r\n";

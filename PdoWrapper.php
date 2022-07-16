@@ -2,8 +2,6 @@
 
 namespace PhpHelpers;
 
-use FFI\Exception;
-
 /**
  * A wrapper for calling PDO functions
  */
@@ -90,7 +88,7 @@ class PdoWrapper
                 $result = $stmt->fetchAll();
                 break;
             default:
-                throw new Exception("Invalid Fetch Method. Use either 'fetch' or 'fetchAll'");
+                throw new \Exception("Invalid Fetch Method. Use either 'fetch' or 'fetchAll'");
                 break;
         }
 

@@ -88,7 +88,6 @@ class PdoWrapper
                 $result = $stmt->fetchAll();
                 break;
             default:
-                throw new \Exception("Invalid Fetch Method. Use either 'fetch' or 'fetchAll'");
                 break;
         }
 

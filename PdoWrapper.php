@@ -2,6 +2,11 @@
 
 namespace PhpHelpers;
 
+use FFI\Exception;
+
+/**
+ * A wrapper for calling PDO functions
+ */
 class PdoWrapper
 {
     protected \PDO $db;
@@ -18,8 +23,18 @@ class PdoWrapper
         error_log(print_r($errorInfo, true));
     }
 
-    // a wrapper for calling pdo functions
-    // if the query fails, returns null
+    /**
+     * Execute PDO commands
+     *
+     * @param string $sql SQL command
+     * @param array $varSet PDO variables used in execute()
+     * @param array|null $fetchMode array of values used in setFetchMode();
+     * eg [PDO::FETCH_CLASS, YourPhpClass::class]
+     * @param string|null $fetchMethod 'fetch' or 'fetchAll'
+     * @return mixed if no records are found, either null or an empty array
+     * will be returned, depending on whether you use 'fetch or 'fetchAll'
+     * @throws Exception if using invalid fetchMethod
+     */
     protected function SqlExecution(
         string $sql,
         array $varSet,
@@ -60,23 +75,22 @@ class PdoWrapper
         $result = null;
         switch ($fetchMethod) {
             case "fetch":
-                try {
-                    $result = $stmt->fetch();
-                } catch (\Error $e) {
-                    // if record fails to fetch, 
-                    //  assume the records to be fetched do not exist
-                    $result = null;
+                /*
+                fetch() returns false if no rows are found.
+                To combat this idiocrasy, I'll fetch all rows and if no rows
+                are found, return null.
+                If rows are found, return the first
+                */
+                $allResults = $stmt->fetchAll();
+                if (count($allResults) > 0){
+                    $result = $allResults[0];
                 }
-                // NOTE: if the query fails, fetch will return false
-                // in order to account for this 
-                // and to remain sane while programming,
-                //  I will return null instead.
-                if ($result === false) $result = null;
                 break;
             case "fetchAll":
                 $result = $stmt->fetchAll();
                 break;
             default:
+                throw new Exception("Invalid Fetch Method. Use either 'fetch' or 'fetchAll'");
                 break;
         }
 
@@ -85,6 +99,12 @@ class PdoWrapper
     #endregion
 
     #region TRANSACTIONS
+    /**
+     * Commits The changes made during the database transaction;
+     * A transaction is created when using SqlExecution
+     *
+     * @return boolean true if commit was successful; false if not
+     */
     public function SaveChanges(): bool
     {
         if (!$this->db->inTransaction()) {

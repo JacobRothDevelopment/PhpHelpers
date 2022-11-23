@@ -6,52 +6,69 @@ All scripts are written for PHP 7.4 | 8.\*
 
 ---
 
-## List of helpers
+## List of Helpers
 
-- UpdateSqlClasses.php
-  - this script is used to create php classes representing your database tables
-  - see the top section of the script to configure the script's parameters
-  - run from the root directory of project
+- `UpdateSqlClasses.php`
+
+  - These scripts are used to create php classes representing your database tables
+  - Choose a script from `UpdateSqlClasses/` based on which sql implementation you're using
+
+    - Supported Implementations
+
+      - MySQL: `/UpdateSqlClasses/mysql/UpdateSqlClasses.php`
+
+      - SQLite: `/UpdateSqlClasses/sqlite/UpdateSqlClasses.php`
+
+  - See the top section of the script to configure the script's parameters
+  - Tun from the root directory of project
+
     ```bash
     php UpdateSqlClasses.php
     ```
-- PdoWrapper.php
 
-  - this class was written because I hated copying and pasting the same pdo query execution code and only needing to change the sql query
-  - initialize the object with your PDO instance, then use this class instead of your PDO
+- `PdoWrapper.php`
+
+  - I wrote this class because I hated copying and pasting the same PDO query & execution code and only needing to change the sql query
+  - Initialize the object with your PDO instance, then use this class instead of your PDO
   - SqlExecution is the method you'll use the most (usage examples here)
 
     ```php
-    $this->SqlExecution($sql, $vars, [PDO::FETCH_CLASS, User::class], "fetch");
+    $PdoWrapperInstance->SqlExecution($sql, $vars, [PDO::FETCH_CLASS, User::class], "fetch");
 
-    $this->SqlExecution($sql, [], [PDO::FETCH_CLASS, Stores::class], "fetchAll");
+    $PdoWrapperInstance->SqlExecution($sql, [], [PDO::FETCH_COLUMN, 0], "fetchAll");
     ```
 
-  - MAJOR NOTE: with this first release, this class is very rough because it's simply a loose abstraction of what I purpose built for a project. In later versions, this will be made more usable
+  - Each `SqlExecution()` tries to begin a transaction if one hasn't already been opened. Because of this, you'll need to run `SaveChanges()` to commit that transaction when you insert into of update your tables
+    ```php
+    $PdoWrapperInstance->SaveChanges();
+    ```
 
-- Logger.php
-  - this class helps create a custom log file.
-  - use like
+- `Logger.php`
+
+  - This class helps create a custom log file.
+  - Use like
+
     ```php
     $logger = new Logger("path/to/file.log");
     $logger->log("hello world!");
     $logger->log("hello world!", LogLevel::Warn);
     ```
+
     outputs
+
     ```log
     [ 2021-09-25 07:18:52 ] [ INFO ] hello world!
     [ 2021-09-25 07:18:40 ] [ WARN ] hello world!
     ```
-- Util.php
-  - DebugPrint
-    - a wrapper around `print_r` which will output data to the browser in a readable format
-    - optional string title and stringifies a given value of any type
-    - use like
+
+- `Util.php`
+
+  - `DebugPrint()`
+
+    - A wrapper around `print_r()` that will output data to the browser in a readable format
+    - Optional string title and stringifies a given value of any type
+    - Use like
+
     ```php
-    \PhpHelpers\Util::DebugPrint($dataToOutput, "A Label To Describe Such Data");
+    \PhpHelpers\Util::DebugPrint($dataToOutput, "A Label To Describe Data");
     ```
----
-
-### Dev notes
-
-Some of these scripts/classes may be designed to work in conjunction together. If you try to use some of these files alone, you may run into errors.

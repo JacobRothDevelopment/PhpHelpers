@@ -13,7 +13,7 @@ $VARS = [
 	'dbPassword' => '',
 	'pdoOptions' => null,
 	'classDirectory' => '',
-	'namespace' => ''
+	'namespace' => '',
 ];
 // End Script Variables ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ $PhpDataType = array(
 $notNull = array(
 	'2' => '',
 	'1' => '',
-	'0' => '?'
+	'0' => '?',
 );
 
 // this will be the 'this file was created automatically' message
@@ -48,7 +48,7 @@ $pdo = new PDO(
 	$VARS['dsn'],
 	$VARS['dbUsername'],
 	$VARS['dbPassword'],
-	$VARS['pdoOptions']
+	$VARS['pdoOptions'],
 );
 
 // Get array of table names

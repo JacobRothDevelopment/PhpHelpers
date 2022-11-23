@@ -14,7 +14,7 @@ $VARS = [
 	'dbPassword' => '',
 	'pdoOptions' => null,
 	'classDirectory' => '',
-	'namespace' => ''
+	'namespace' => '',
 ];
 // End Script Variables ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
@@ -44,13 +44,13 @@ $PhpDataType = array(
 	'json' => 'object',
 	'datetime' => 'string',
 	'date' => 'string',
-	'timestamp' => 'string'
+	'timestamp' => 'string',
 );
 
 // used to designate a paramter as nullable or not
 $Nullable = array(
 	'YES' => '?',
-	'NO' => ''
+	'NO' => '',
 );
 
 // this will be the 'this file was created automatically' message
@@ -65,7 +65,7 @@ $pdo = new PDO(
 	$VARS['dsn'],
 	$VARS['dbUsername'],
 	$VARS['dbPassword'],
-	$VARS['pdoOptions']
+	$VARS['pdoOptions'],
 );
 
 // Get array of table names

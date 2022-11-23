@@ -1,6 +1,4 @@
-- Provide usage examples
 - allow for insert/update without the sql statement
-    - loop through properties of class and create sql statement based on those
-        - don't forget to use PDO the way it's supposed to
-    - have to come up with easy to use & understand usage
-- also, $fetchMode, $fetchClassName should be a tuple inserted with spread operator,
+  - loop through properties of class and create sql statement based on those
+    - don't forget to use PDO the way it's supposed to
+  - have to come up with easy to use & understand usage

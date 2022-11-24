@@ -14,7 +14,7 @@ $VARS = [
 	'dbPassword' => '',
 	'pdoOptions' => null,
 	'classDirectory' => '',
-	'namespace' => '',
+	'namespace' => null, // null means no namespace
 ];
 // End Script Variables ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ $PhpDataType = array(
 	'timestamp' => 'string',
 );
 
-// used to designate a paramter as nullable or not
+// used to designate a parameter as nullable or not
 $Nullable = array(
 	'YES' => '?',
 	'NO' => '',
@@ -60,7 +60,7 @@ If you wish to update this class, make your changes in the database
 	then run UpdateSqlClasses.php again
 */';
 
-// create db connaction
+// create db connection
 $pdo = new PDO(
 	$VARS['dsn'],
 	$VARS['dbUsername'],
@@ -100,8 +100,11 @@ foreach ($tableArray as $tableData) {
 	if ($DbClassFile === false)
 		throw new Exception("Failed to open class file: $table");
 
-	$classText = "<?php\n$autoCreateMessage\n\nnamespace " .
-		$VARS['namespace'] . ";\n\nclass " . $table . "\n{\n";
+	$phpText = "<?php\n$autoCreateMessage\n\n";
+	$namespaceText = $VARS['namespace'] === null ? "" : "namespace " . $VARS['namespace'] . ";\n\n";
+	$tableClassText = "class $table\n{\n";
+	$classText = $phpText . $namespaceText . $tableClassText;
+
 	foreach ($columnArray as $column) {
 		if ($column['TABLE_NAME'] === $table) {
 			$classText .= "\tpublic "

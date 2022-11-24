@@ -13,7 +13,7 @@ $VARS = [
 	'dbPassword' => '',
 	'pdoOptions' => null,
 	'classDirectory' => '',
-	'namespace' => '',
+	'namespace' => null, // null means no namespace
 ];
 // End Script Variables ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
@@ -63,7 +63,6 @@ $tableArray = $stmtTables->fetchAll();
 // Create db classes & files
 foreach ($tableArray as $tableData) {
 	$table = $tableData['tbl_name'];
-	echo $table . "\r\n";
 	$dir = __DIR__ . "/" . $VARS['classDirectory'] . "/";
 	$file = $dir . $table . ".php";
 	if (!file_exists($dir)) {
@@ -75,8 +74,10 @@ foreach ($tableArray as $tableData) {
 	if ($DbClassFile === false)
 		throw new Exception("Failed to open class file: $table");
 
-	$classText = "<?php\n$autoCreateMessage\n\nnamespace " .
-		$VARS['namespace'] . ";\n\nclass " . $table . "\n{\n";
+	$phpText = "<?php\n$autoCreateMessage\n\n";
+	$namespaceText = $VARS['namespace'] === null ? "" : "namespace " . $VARS['namespace'] . ";\n\n";
+	$tableClassText = "class $table\n{\n";
+	$classText = $phpText . $namespaceText . $tableClassText;
 
 	// Get array of column data
 	$sqlGetColumnDefinitions = "PRAGMA table_info($table)";

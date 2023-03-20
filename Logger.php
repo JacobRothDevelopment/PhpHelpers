@@ -9,11 +9,13 @@ class Logger
 {
     public string $logFile;
     public int $permissions;
+    public string $dateFormat;
 
     public function __construct(string $logFile = __DIR__ . "/.log", int $permissions = 0777)
     {
         $this->logFile = $logFile;
         $this->permissions = $permissions;
+        $this->dateFormat = "Y-m-d H:i:s";
     }
 
     /**
@@ -21,14 +23,15 @@ class Logger
      *
      * @param string $message
      * @param string $logLevel
-     * @return void
+     * @return int|false
      */
-    public function log(string $message, string $logLevel = LogLevel::Info)
+    public function log(string $message, string $logLevel = LogLevel::Info): int|false
     {
-        $logMessage = "[ " . date("Y-m-d H:i:s") . " ] [ " . $logLevel . " ] " . $message . "\r\n";
+        $date = date($this->dateFormat);
+        $logMessage = "[ $date ] [ $logLevel ] $message" . PHP_EOL;
         $logDir = dirname($this->logFile);
         if (!file_exists($logDir)) {
-            mkdir($logDir, 0777, true);
+            mkdir($logDir, $this->permissions, true);
         }
         return file_put_contents($this->logFile, $logMessage, FILE_APPEND);
     }

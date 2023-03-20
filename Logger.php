@@ -39,16 +39,16 @@ class Logger
 
 class LogLevel
 {
+    const Alert = 'ALERT';
+    const Critical = 'CRITICAL';
     const Debug = 'DEBUG';
+    const Emergency = 'EMERGENCY';
+    const Error = 'ERROR';
+    const Fail = 'FAIL';
+    const Failure = 'FAILURE';
     const Info = 'INFO';
     const Information = 'INFORMATION';
     const Notice = 'NOTICE';
-    const Warning = 'WARNING';
     const Warn = 'WARN';
-    const Critical = 'CRITICAL';
-    const Error = 'ERROR';
-    const Alert = 'ALERT';
-    const Emergency = 'EMERGENCY';
-    const Fail = 'FAIL';
-    const Failure = 'FAILURE';
+    const Warning = 'WARNING';
 }
